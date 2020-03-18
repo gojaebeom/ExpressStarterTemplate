@@ -21,4 +21,4 @@ my-app
 ```
 
 ### 프로젝트 실행흐름
-![package-img](https://user-images.githubusercontent.com/62233873/76976999-15259d00-6978-11ea-93d9-e23462577fbf.PNG){: width="100%" height="100%" border-radius="10px"}
+![package-img](https://user-images.githubusercontent.com/62233873/76976999-15259d00-6978-11ea-93d9-e23462577fbf.PNG){: width="100%" height="100%"}
