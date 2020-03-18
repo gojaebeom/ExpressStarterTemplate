@@ -1,5 +1,13 @@
 # Express Server Template
-#### *nodejs 관련 프로젝트를 만들때 반복되는 작업들을 최소화 한 템플릿 프로젝트 입니다. 자주 사용되는 라이브러리들을 등록하고 회원가입 로그인 로그아웃 기능을 구현하였습니다.*
+#### *nodejs 관련 프로젝트를 만들때 반복되는 작업들을 최소화 할 수 있게 만든 starter-template 이다. 자주 사용되는 라이브러리들을 등록하고 회원가입 로그인 로그아웃 기능을 구현함.*
+<br/>
+
+#### _file download_
+--  _git clone https://github.com/gojaebeom/express-server-templete.git_
+#### _install and start_
+--  _최상위 경로에서 npm install_
+--  _npm run start 또는 npm run serve_
+<br/>
 
 ### _주요 기능만 포함한 폴더 구조_
 ```
