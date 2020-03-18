@@ -21,4 +21,5 @@ my-app
 ```
 
 ### 프로젝트 실행흐름
-![package-img](https://user-images.githubusercontent.com/62233873/76976999-15259d00-6978-11ea-93d9-e23462577fbf.PNG){: width="100%" height="100%"}
+-  package.json 의 스크립트를 통해 *npm run start* 또는 _npm run serve_ 를 이용하여 www파일을 읽기 시작한다.
+    - [package.json 파일 참고](https://github.com/gojaebeom/express-server-templete/blob/master/package.json)
