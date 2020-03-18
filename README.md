@@ -3,10 +3,11 @@
 <br/>
 
 #### _file download_
---  _git clone https://github.com/gojaebeom/express-server-templete.git_
+-  _git clone https://github.com/gojaebeom/express-server-templete.git_
 #### _install and start_
---  _최상위 경로에서 npm install_
---  _npm run start 또는 npm run serve_
+-  _1. 최상위 경로에서 npm install_
+-  _2. npm run start 또는 npm run serve_
+<br/>
 <br/>
 
 ### _주요 기능만 포함한 폴더 구조_
