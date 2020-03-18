@@ -22,3 +22,7 @@ my-app
 
 ### 프로젝트 실행흐름
 ![대체 텍스트(alternative text)를 입력하세요!](https://github.com/gojaebeom/express-server-templete/blob/master/README-IMG/package-img.PNG?raw=true "링크 설명(title)을 작성하세요.")
+```html
+<img src="https://github.com/gojaebeom/express-server-templete/blob/master/README-IMG/package-img.PNG?raw=true" style="border-radius:3px;">
+
+```
