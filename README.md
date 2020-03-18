@@ -1,5 +1,5 @@
 *nodeJS 를 활용한 웹 서버 맞춤 템플릿*
-# Express Server Templete
+# Express Server Template
 
 ### 주요 기능만 포함한 폴더 구조
 ```
@@ -19,3 +19,6 @@ my-app
 └── package.json (node_module 폴더에 있는 라이브러리들을 관리 및 실행 스크립트 작성)
 
 ```
+
+### 프로젝트 실행흐름
+![대체 텍스트(alternative text)를 입력하세요!](http://www.gstatic.com/webp/gallery/5.jpg "링크 설명(title)을 작성하세요.")
