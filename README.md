@@ -186,8 +186,6 @@ exports.logout = async (req, res)=>{
 exports.register = async (req, res) =>{
 	try{
 		console.log(req.body);
-		console.log('회원가입 post!');
-		console.log(req.body.u_email)
 
 		const u_email   = req.body.u_email ? req.body.u_email : ""
 		let 	u_pw   	= req.body.u_pw    ? req.body.u_pw    : ""
@@ -246,3 +244,82 @@ router.get('/user/logout', auth, logout);
 module.exports = router;
 ```
 
+### _-DataBase_
+#### database는 mysql을 사용하여 config의 db정보를 가저와 연결한다.
+```javascript
+//database/index.js
+
+const mysql = require('mysql');
+const dbInfo = require('../config/config.json');
+
+console.log('database loading..')
+
+const db = mysql.createConnection({
+    host:dbInfo.host,
+    user:dbInfo.user,
+    password:dbInfo.password,
+    database:dbInfo.database,
+    port:dbInfo.port,
+    dateStrings:'date'
+})
+
+db.connect(function(err) {
+    if(err){
+        console.log(err.code); // 'ECONNREFUSED'
+        console.log(err.fatal); // true
+    }else{
+        console.log(`database is connected`)
+    }
+});
+
+exports.query = function(query, params){
+
+    return new Promise((resolve, reject)=>{
+
+        db.query(query, params, function(err, result){
+
+            if(err) reject(err);
+            else resolve(result);
+
+        });
+    });
+}
+
+
+```
+#### user 테이블에 해당하는 query를 스프링의 mapper 방식처럼 만들어 사용한다.
+#### nodejs 에서 mysql sequelize를 지원해 더 간단히 사용하는 방식이 있지만 아직 본인이 잘 습득하지 못하였다. 시간나는대로 알아볼 생각이다.
+```javascript
+//database/UserMapper.js
+
+const db = require('./index');
+
+ //로그인 
+exports.LOGIN = function(u_email){
+    const queryString = 
+    "select * from s_users where u_email = ?";
+    return db.query(queryString,[u_email]);
+}
+
+//회원가입
+exports.REGISTER = function(u_email, u_pw, u_name){
+    const queryString = 
+    "insert into storago.s_users (u_email, u_pw, u_name)" +
+    "values (?, ?, ?)";
+    return db.query(queryString,[u_email ,u_pw, u_name]);
+}
+
+//토큰 생성/ 삭제
+exports.SET_TOKEN = function(u_no, u_token){
+    const queryString = 
+    "update storago.s_users set u_token = ? where u_no = ?";
+    return db.query(queryString,[u_token, u_no]);
+}
+
+//토큰을 디코딩하여 추출해낸 id로 다시 유저 정보 얻어오기
+exports.FIND_USER = function(u_no){
+    const queryString = 
+    "select * from s_users where u_no = ?";
+    return db.query(queryString,[u_no]);
+}
+```

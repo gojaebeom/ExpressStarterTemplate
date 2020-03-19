@@ -85,8 +85,6 @@ exports.logout = async (req, res)=>{
 exports.register = async (req, res) =>{
 	try{
 		console.log(req.body);
-		console.log('회원가입 post!');
-		console.log(req.body.u_email)
 
 		const u_email   = req.body.u_email ? req.body.u_email : ""
 		let 	u_pw   	= req.body.u_pw    ? req.body.u_pw    : ""
