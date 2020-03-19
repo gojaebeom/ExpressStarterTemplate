@@ -44,3 +44,37 @@ my-app
 <br/>
 
 ### _Router_
+```javascript
+//index.js
+
+/**
+ * express 모듈을 불러와 변수에 담고 
+ * express 변수중 Router함수를 불러와 router 변수에 담는다.
+ */
+var express = require('express');
+var router = express.Router();
+
+
+// Auth , User 라우터를 불러온다. 사용하기 편하게 비구조할당으로 선언.
+// Auth : 다른 라우터를 불러오기전에 암호화된 쿠키가 있다면 디코딩하여 사용자 정보를 받아오는 기능.
+// User : 로그인, 로그아웃, 회원가입 등을 처리 
+const { auth } = require('./Auth');
+const { login, register, logout } = require('./User');
+
+
+/* test url */
+router.get('/hello', (req, res)=>{
+    res.send("hello world");
+});
+
+/* rest full API 통신. */
+router.post('/user/login', login);
+router.post('/user/register', register);
+router.get('/user/logout', auth, logout);
+
+
+// router를 app.js 받아볼수있게 export한다.
+module.exports = router;
+```
+#### index.js 는 모든 라우터를 불러와 통신방식을 설정하는 곳 입니다.
+
