@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-const { auth } = require('./Auth');
-const {login, register, logout} = require('./User');
+const { auth } = require('../controllers/AuthController');
+const {login, register, logout} = require('../controllers/UserController');
 
 
 /* test url */
