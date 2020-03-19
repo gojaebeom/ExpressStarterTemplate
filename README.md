@@ -1,4 +1,4 @@
-# Express Server Template
+# Express Mysql Template
 #### *nodejs 관련 프로젝트를 만들때 반복되는 작업들을 최소화 할 수 있게 만든 starter-template 이다. 자주 사용되는 라이브러리들을 등록하고 회원가입 로그인 로그아웃 기능을 구현함.*
 <br/>
 
