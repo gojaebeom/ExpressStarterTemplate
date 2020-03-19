@@ -24,7 +24,7 @@ my-app
 │   ├── UserController.js (UserMapper를 읽어와 로그인, 로그아웃, 회원가입등을 처리)
 │   └── AuthController.js (클라이언트에서 요청시 암호화된 쿠키가 있으면 복호화 하여 유저 정보 추출)
 ├── routes
-│   ├── index.js (각각의 controller 들을 불러와 get, post 통신 방식을 설정)
+│   └── index.js (각각의 controller 들을 불러와 get, post 통신 방식을 설정)
 ├── app.js (www파일에서 서버를 실행하기 이전에 미들웨어 처리)
 └── package.json (node_module 폴더에 있는 라이브러리들을 관리 및 실행 스크립트 작성)
 ```
@@ -323,3 +323,4 @@ exports.FIND_USER = function(u_no){
     return db.query(queryString,[u_no]);
 }
 ```
+
