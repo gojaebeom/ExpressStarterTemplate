@@ -1,0 +1,35 @@
+<!-- Default form register -->
+<form id="register-form" action="/api/user/register" method="POST" class="text-center p-5" action="#!">
+
+    <p class="h4 mb-4">Sign up</p>
+
+    <!-- name -->
+    <input type="text" id="name-put" name="u_name" class="form-control" placeholder="Name">
+    <small id="name-span" class="form-text text-muted mb-3">
+        이름은 4 자리 이상입니다.
+     </small>
+
+    <!-- E-mail -->
+    <input type="email" id="email-put" name="u_email" class="form-control" placeholder="E-mail">
+    <small id="email-span" class="form-text text-muted mb-3">
+        이메일양식을 지켜주세요.
+    </small>
+
+    <!-- Password -->
+    <input type="password" id="pw-put" name="u_pw" class="form-control" placeholder="Password"
+        aria-describedby="defaultRegisterFormPasswordHelpBlock">
+    <small id="pw-span" class="form-text text-muted mb-3">
+       페스워드는 8자리 이상 입력해주세요!
+    </small>
+
+    <!-- Sign up button -->
+    <button id="register-btn" class="btn btn-info my-4 btn-block" type="submit">Sign in</button>
+
+
+    <!-- Terms of service -->
+    <p>By clicking
+        <em>Sign up</em> you agree to our
+        <a href="" target="_blank">terms of service</a>
+    </p>
+</form>
+<!-- Default form register -->

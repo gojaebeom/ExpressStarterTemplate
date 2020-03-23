@@ -1,20 +1,29 @@
 var express = require('express');
 var router = express.Router();
 
-const { auth } = require('../controllers/AuthController');
-const {login, register, logout} = require('../controllers/UserController');
+const { login, register, logout, info } = require('../controllers/UserController');
+
+/* restful API 통신. */
+router.post('/api/user/login', login);
+router.post('/api/user/register', register);
+router.get('/api/user/logout', logout);
+router.get('/api/user/auth', info);
 
 
-/* test url */
-router.get('/hello', (req, res)=>{
-    res.send("hello world");
+
+/****************************************************/
+
+/* page router */
+router.get('/', (req, res)=>{
+    res.render("index",{session:req.session});
+});
+router.get('/login', (req, res)=>{
+    res.render("LoginPage",{session:req.session});
+});
+router.get('/register', (req, res)=>{
+    res.render("RegisterPage",{session:req.session});
 });
 
-/* rest full API 통신. */
-router.post('/user/login', login);
-router.post('/user/register', register);
-router.get('/user/logout', auth, logout);
+
 
 module.exports = router;
-
-

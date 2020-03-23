@@ -1,5 +1,5 @@
 //user table
-const db = require('./index');
+const db = require('../config');
 
 /**
  * 	CREATE TABLE storago.s_users(

@@ -1,52 +1,44 @@
-const users = require('../database/UsersMapper');
+const users = require('../SQL/UserMapper');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const jwt = require('jsonwebtoken');
 
 /**
  * 클라이언트에서 req.body에 넘어온 email을 db에 있는지 검사 후
  * 있으면 같이 넘어온 비밀번호를 bcrypt 라이브러리를 통해 암호화된 비밀번호와 비교
  * 비밀번호까지 맞으면 유저에 토큰 저장, 쿠키에 토큰 저장 후 넘어가기
  */
-exports.login= async (req, res) =>{
-    try{
+exports.login = async (req, res) => {
+	try {
 
-		const userInfoArr =  await users.LOGIN(req.body.u_email);
-		const [ userInfo ] = userInfoArr;
+		console.log(req.body);
+		const userInfoArr = await users.LOGIN(req.body.u_email);
+		const [userInfo] = userInfoArr;
 		//const userInfo = userInfo[0] 과 같다.
 		console.log('-----userInfo----');
 		console.log(userInfo)
 
-		if(!userInfo) return res.json({
-			success:false,
-			message:'찾고자하는 이메일이 존재하지 않습니다.'
+		if (!userInfo) return res.json({
+			success: false,
+			message: '찾고자하는 이메일이 존재하지 않습니다.'
 		})
 
-		const checkPassword = bcrypt.compareSync(req.body.u_pw , userInfo.u_pw)
+		const checkPassword = bcrypt.compareSync(req.body.u_pw, userInfo.u_pw)
 
-		if(!checkPassword) return res.json({
-			success:false,
-			message:'찾고자하는 비밀번호가 존재하지 않습니다.'
+		if (!checkPassword) return res.json({
+			success: false,
+			message: '찾고자하는 비밀번호가 존재하지 않습니다.'
 		})
 
-		const token = jwt.sign(userInfo.u_no,'secretToken');
-		console.log(`token : ${token}`);		  
+		req.session.email = userInfo.u_email;
+		req.session.name = userInfo.u_name;
+		req.session.role = userInfo.u_role;
+		req.session.img = userInfo.u_img;
+		console.log(req.session);
+		res.redirect('/');
 
-		await 
-			users.SET_TOKEN(userInfo.u_no , token)
-				.then(()=>{
-					//쿠키에 토큰 넣어주기
-					res.cookie('x_auth', token)
-					.status(200)
-						.json({
-						success:true,
-						userID:token
-						})
-				})
-
-    }catch(e){
-      	console.log(e);
-    }
+	} catch (e) {
+		console.log(e);
+	}
 }
 
 
@@ -58,23 +50,15 @@ exports.login= async (req, res) =>{
  * 그리고 받아온 user객체에 u_no(id값)의 사용자에 토큰을 지워주는 것으로
  * 성공여부를 반환한다.
  */
-exports.logout = async (req, res)=>{
-    try{
-		const u_no = req.user.u_no
-		const token = "";
+exports.logout = async (req, res) => {
+	try {
+		req.session.destroy();
+		res.clearCookie('sid');
+		res.redirect("/");
 
-		await users.SET_TOKEN(u_no , token)
-			.then(()=>{
-				console.log('성공적으로 로그아웃하였습니다!');
-				res.json({
-					success:true,
-					message:'성공적인 로그아웃!'
-				})
-			})
-
-    }catch(e){
-        console.log(e);
-    }
+	} catch (e) {
+		console.log(e);
+	}
 }
 
 
@@ -82,26 +66,49 @@ exports.logout = async (req, res)=>{
  * 회원가입 
  * 데이터를 받고 , 그중에 비밀번호를 bcrypt 라이브러리를 통해 암호화 한뒤 user 테이블에 insert 시킴
  */
-exports.register = async (req, res) =>{
-	try{
-		console.log(req.body);
+exports.register = async (req, res) => {
+	try {
 
-		const u_email   = req.body.u_email ? req.body.u_email : ""
-		let 	u_pw   	= req.body.u_pw    ? req.body.u_pw    : ""
-		const   u_name  = req.body.u_name  ? req.body.u_name  : ""
-
+		const u_name  = req.body.u_name  ? req.body.u_name  : ""
+		const u_email = req.body.u_email ? req.body.u_email : ""
+		let   u_pw    = req.body.u_pw 	 ? req.body.u_pw 	: ""
+		
 		const salt = bcrypt.genSaltSync(saltRounds);
-		const hash = bcrypt.hashSync(req.body.u_pw , salt, (err)=>console.log(err));
+		const hash = bcrypt.hashSync(req.body.u_pw, salt, (err) => console.log(err));
 
 		u_pw = hash;
 
-		await 
+		await
 			users.REGISTER(u_email, u_pw, u_name)
-				.then(()=>{res.json({success:true}) })
-		
-	}catch(e){
+				.then(() => {
+					res.redirect('/')
+				})
+	} catch (e) {
 		console.log(e);
 	}
 }
 
+//로그인 된 유저 정보 뿌려주기
+exports.info = (req, res) => {
+	try {
+		console.log('req.user 정보 획인해보기');
+		console.log(req.user);
+		const {
+			u_email,
+			u_name,
+			u_img,
+			u_role
+		} = req.user;
 
+		res.json({
+			u_email,
+			u_name,
+			u_img,
+			u_role
+		});
+
+
+	} catch (e) {
+		console.log(e);
+	}
+}

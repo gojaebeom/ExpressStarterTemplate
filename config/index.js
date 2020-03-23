@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const dbInfo = require('../config/config.json');
+const dbInfo = require('./config.json');
 
 console.log('database loading..')
 
@@ -22,14 +22,10 @@ db.connect(function(err) {
 });
 
 exports.query = function(query, params){
-
     return new Promise((resolve, reject)=>{
-
         db.query(query, params, function(err, result){
-
             if(err) reject(err);
             else resolve(result);
-
         });
     });
 }
