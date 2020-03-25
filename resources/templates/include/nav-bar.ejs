@@ -1,0 +1,46 @@
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark">
+	<a class="navbar-brand nav-link" href="#">storago.io</a>
+	<!-- Collapse button -->
+	<div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="#">Home
+					<span class="sr-only">(current)</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Features</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Pricing</a>
+			</li>
+		</ul>
+		<% if(session){ %>
+		<ul class="navbar-nav ml-auto mr-2">
+			<li class="nav-item">
+				<a class="nav-link" href="/login">login</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/register">register</a>
+			</li>
+		</ul>
+		<% }else{ %>
+		<ul class="logged-nav navbar-nav ml-auto nav-flex-icons mr-2">
+			<li class="nav-item avatar dropdown">
+				<a class="avatar-wrapper nav-link dropdown-toggle d-flex justify-content-center align-items-center"
+					id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg"
+						class="avatar-img rounded-circle z-depth-0" alt="avatar image">
+				</a>
+				<div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+					aria-labelledby="navbarDropdownMenuLink-55">
+					<a class="dropdown-item" href="#">내 정보</a>
+					<a class="dropdown-item" href="#">로그아웃</a>
+				</div>
+			</li>
+		</ul>
+		<% } %>
+	</div>
+</nav>
+<!--/.Navbar -->

@@ -8,13 +8,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-var Router = require('./routes');
+var {api_router, page_router} = require('./routes');
 
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, '/resources/views'));
+app.set('views', path.join(__dirname, '/resources/templates/pages'));
 app.set('view engine', 'ejs');
 
 /*** middleware ***/
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/resources/public')));
+app.use(express.static(path.join(__dirname, '/resources/static')));
 
 app.use(session({
   key: 'sid',
@@ -36,7 +36,8 @@ app.use(session({
   }
 }));
 
-app.use('/', Router);
+app.use('/', page_router);
+app.use('/api', api_router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

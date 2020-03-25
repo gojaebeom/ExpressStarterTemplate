@@ -1,29 +1,35 @@
 var express = require('express');
-var router = express.Router();
+var page_router = express.Router();
+var api_router = express.Router();
 
-const { login, register, logout, info } = require('../controllers/UserController');
+const {login , register} = require('./user');
 
-/* restful API 통신. */
-router.post('/api/user/login', login);
-router.post('/api/user/register', register);
-router.get('/api/user/logout', logout);
-router.get('/api/user/auth', info);
-
-
-
-/****************************************************/
 
 /* page router */
-router.get('/', (req, res)=>{
-    res.render("index",{session:req.session});
+page_router.get('/', function home(req, res) {
+    res.render('index', {
+        session: req.session
+    });
 });
-router.get('/login', (req, res)=>{
-    res.render("LoginPage",{session:req.session});
-});
-router.get('/register', (req, res)=>{
-    res.render("RegisterPage",{session:req.session});
-});
+
+page_router.get('/login', function login(req, res) {
+    res.render('login', {
+        session: req.session
+    })
+})
+
+page_router.get('/register', function register(req, res) {
+    res.render('register', {
+        session: req.session
+    })
+})
+
+
+api_router.post('/user/login', login);
 
 
 
-module.exports = router;
+module.exports = {
+    api_router,
+    page_router
+};
